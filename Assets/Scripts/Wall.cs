@@ -35,7 +35,8 @@ public class Wall : MonoBehaviour
 
     private void Move()
     {
-        transform.position = new Vector2(transform.position.x - Time.smoothDeltaTime * moveSpeed, 0);
+        var cachedTransform = transform;
+        cachedTransform.position = new Vector2(cachedTransform.position.x - Time.smoothDeltaTime * moveSpeed, 0);
         if (transform.position.x < -1) WallDestroyed();
     }
 

@@ -13,7 +13,7 @@ public class ColorManager : MonoBehaviour
         {
             0 => Color.Blue,
             1 => Color.Green,
-            2 => Color.Orange,
+            2 => Color.Yellow,
             3 => Color.Red,
             _ => throw new ArgumentException("Invalid index")
         };

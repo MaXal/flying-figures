@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -28,7 +29,15 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         var tile = other.gameObject.GetComponent<Tile>();
-        if (tile != null && tile.Color != color) Destroy(gameObject);
+        if (tile != null && tile.Color != color) DestroyPlayer();
+    }
+
+    public static event Action OnPlayerDestroy;
+
+    private void DestroyPlayer()
+    {
+        OnPlayerDestroy?.Invoke();
+        Destroy(gameObject);
     }
 
     private void ChangeShape()
@@ -45,14 +54,16 @@ public class Player : MonoBehaviour
         var deltaX = Input.GetAxis("Horizontal") * Time.smoothDeltaTime * moveSpeed;
         var deltaY = Input.GetAxis("Vertical") * Time.smoothDeltaTime * moveSpeed;
 
-        var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
-        var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
+        var position = transform.position;
+        var newXPos = Mathf.Clamp(position.x + deltaX, xMin, xMax);
+        var newYPos = Mathf.Clamp(position.y + deltaY, yMin, yMax);
         transform.position = new Vector2(newXPos, newYPos);
     }
 
     private void SetUpMoveBoundaries()
     {
         var gameCamera = Camera.main;
+        if (gameCamera == null) return;
         xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + padding;
         xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - padding;
         yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + padding;

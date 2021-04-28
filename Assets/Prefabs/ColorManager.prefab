@@ -46,10 +46,10 @@ MonoBehaviour:
   tileSprites:
   - {fileID: 21300000, guid: da3630d317f52426484405c9d452303e, type: 3}
   - {fileID: 21300000, guid: bb0bd6a12f1df4f769e02c51a5373635, type: 3}
-  - {fileID: 21300000, guid: 5428193a6e27e40cead49eecd54367cf, type: 3}
+  - {fileID: 21300000, guid: 4c08c19c125984bc2859b12b8de81e84, type: 3}
   - {fileID: 21300000, guid: e244757466c604de8b5df12943784d00, type: 3}
   playerSprites:
   - {fileID: 21300000, guid: f5bbcef55c80d4bdb8d0f5a1ab2fa63c, type: 3}
   - {fileID: 21300000, guid: 5684b0d7e11da49e792fd6e95e95a8da, type: 3}
-  - {fileID: 21300000, guid: da956dab9e5cd4f1299c4bdb96252606, type: 3}
+  - {fileID: 21300000, guid: ac298e1f90089493e8e6c9861451c4d1, type: 3}
   - {fileID: 21300000, guid: 6cf0aef1feb7e4bc18840eda3cb36b3d, type: 3}
