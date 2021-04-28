@@ -123,24 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1754230473 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1951604914021694423, guid: 37c4d6578db344535bf048fc4cdaa76d, type: 3}
-  m_PrefabInstance: {fileID: 1951604913358509342}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1754230474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1754230473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f410be82203414ec1ab40d48c710f466, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 10
 --- !u!1 &1772934584
 GameObject:
   m_ObjectHideFlags: 0
@@ -4998,6 +4980,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1951604914021694423, guid: 37c4d6578db344535bf048fc4cdaa76d, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 1951604914021694423, guid: 37c4d6578db344535bf048fc4cdaa76d, type: 3}
       propertyPath: m_Name
       value: Wall
