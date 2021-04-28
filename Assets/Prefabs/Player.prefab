@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5542279088914746643}
-  - component: {fileID: 5542279088914746642}
   - component: {fileID: 5542279088914746640}
   - component: {fileID: 1005012552712792587}
   - component: {fileID: 7387214899778086944}
+  - component: {fileID: 5542279088914746642}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -34,24 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5542279088914746642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5542279088914746668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50ae0957e9a534d77acb0adb422bf591, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shapes:
-  - {fileID: 21300000, guid: 7ec40986a30824883bf124052fb8b634, type: 3}
-  - {fileID: 21300000, guid: 8c336d9c6ce734d0d994dc29235daa1d, type: 3}
-  - {fileID: 21300000, guid: 0deecc15f26c64855ab03c96fa8ab521, type: 3}
-  moveSpeed: 10
-  padding: 1
 --- !u!212 &5542279088914746640
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -93,12 +75,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7ec40986a30824883bf124052fb8b634, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5684b0d7e11da49e792fd6e95e95a8da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.08, y: 1.08}
+  m_Size: {x: 1.48, y: 1.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -142,8 +124,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.08, y: 1.08}
-    newSize: {x: 1.08, y: 1.08}
+    oldSize: {x: 1.48, y: 1.48}
+    newSize: {x: 1.48, y: 1.48}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -151,3 +133,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.08, y: 1.08}
   m_EdgeRadius: 0
+--- !u!114 &5542279088914746642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542279088914746668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50ae0957e9a534d77acb0adb422bf591, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shapes:
+  - {fileID: 21300000, guid: f5bbcef55c80d4bdb8d0f5a1ab2fa63c, type: 3}
+  - {fileID: 21300000, guid: da956dab9e5cd4f1299c4bdb96252606, type: 3}
+  - {fileID: 21300000, guid: 6cf0aef1feb7e4bc18840eda3cb36b3d, type: 3}
+  - {fileID: 21300000, guid: 5684b0d7e11da49e792fd6e95e95a8da, type: 3}
+  moveSpeed: 10
+  padding: 1

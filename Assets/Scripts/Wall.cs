@@ -6,7 +6,7 @@ public class Wall : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private GameObject tile;
-    [SerializeField] private GameObject passage;
+    [SerializeField] private ColorManager colorManager;
 
     private void Start()
     {
@@ -24,9 +24,11 @@ public class Wall : MonoBehaviour
     {
         for (var i = 0; i < 9; i++)
         {
-            var typeOfTile = Random.Range(0, 2) == 0 ? passage : tile;
-            var generatedTile = Instantiate(typeOfTile, new Vector3(transform.position.x, 1 + i * 2, 0),
+            var randomIndex = Random.Range(0, colorManager.GetNumberOfColors());
+            var generatedTile = Instantiate(tile, new Vector3(transform.position.x, 1 + i * 2, 0),
                 Quaternion.Euler(0, 0, 90));
+            generatedTile.GetComponent<SpriteRenderer>().sprite = colorManager.GetTileSprite(randomIndex);
+            generatedTile.GetComponent<Tile>().Color = ColorManager.GetColorByIndex(randomIndex);
             generatedTile.transform.parent = gameObject.transform;
         }
     }

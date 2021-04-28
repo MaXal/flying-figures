@@ -45,4 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   tile: {fileID: 5677709775569562500, guid: ab32503dc7e5d49f186c005cce217eef, type: 3}
-  passage: {fileID: 1193589515118637138, guid: bcd3bfb769719471498768529b454964, type: 3}
+  colorManager: {fileID: 7126233997535024064, guid: 9971eb916ef0946cd863b713ea1cbb1e, type: 3}

@@ -1,11 +1,12 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private List<Sprite> shapes;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float padding = 1f;
+    [SerializeField] private ColorManager colorManager;
+
+    private Color color;
 
     private int currentShapeIndex;
     private float xMax;
@@ -26,16 +27,17 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Destroy(gameObject);
+        var tile = other.gameObject.GetComponent<Tile>();
+        if (tile != null && tile.Color != color) Destroy(gameObject);
     }
 
     private void ChangeShape()
     {
-        if (Input.GetButtonDown("Jump"))
-        {
-            GetComponent<SpriteRenderer>().sprite = shapes[++currentShapeIndex];
-            if (currentShapeIndex >= shapes.Count) currentShapeIndex = 0;
-        }
+        if (!Input.GetButtonDown("Jump")) return;
+        currentShapeIndex++;
+        if (currentShapeIndex >= colorManager.GetNumberOfColors()) currentShapeIndex = 0;
+        GetComponent<SpriteRenderer>().sprite = colorManager.GetPlayerSprite(currentShapeIndex);
+        color = ColorManager.GetColorByIndex(currentShapeIndex);
     }
 
     private void Move()
