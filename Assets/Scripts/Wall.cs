@@ -10,13 +10,7 @@ public class Wall : MonoBehaviour
 
     private void Start()
     {
-        for (var i = 0; i < 9; i++)
-        {
-            var typeOfTile = Random.Range(0, 2) == 0 ? passage : tile;
-            var generatedTile = Instantiate(typeOfTile, new Vector3(transform.position.x, 1 + i * 2, 0),
-                Quaternion.Euler(0, 0, 90));
-            generatedTile.transform.parent = gameObject.transform;
-        }
+        CreateTiles();
     }
 
     private void Update()
@@ -26,6 +20,17 @@ public class Wall : MonoBehaviour
 
     public event Action OnWallDestroy;
 
+    private void CreateTiles()
+    {
+        for (var i = 0; i < 9; i++)
+        {
+            var typeOfTile = Random.Range(0, 2) == 0 ? passage : tile;
+            var generatedTile = Instantiate(typeOfTile, new Vector3(transform.position.x, 1 + i * 2, 0),
+                Quaternion.Euler(0, 0, 90));
+            generatedTile.transform.parent = gameObject.transform;
+        }
+    }
+
     private void Move()
     {
         transform.position = new Vector2(transform.position.x - Time.smoothDeltaTime * moveSpeed, 0);
@@ -34,7 +39,7 @@ public class Wall : MonoBehaviour
 
     private void WallDestroyed()
     {
-        Destroy(gameObject);
         OnWallDestroy?.Invoke();
+        Destroy(gameObject);
     }
 }

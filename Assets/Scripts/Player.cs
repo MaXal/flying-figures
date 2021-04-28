@@ -33,8 +33,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            GetComponent<SpriteRenderer>().sprite = shapes[currentShapeIndex];
-            currentShapeIndex++;
+            GetComponent<SpriteRenderer>().sprite = shapes[++currentShapeIndex];
             if (currentShapeIndex >= shapes.Count) currentShapeIndex = 0;
         }
     }
