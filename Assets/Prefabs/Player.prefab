@@ -145,10 +145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50ae0957e9a534d77acb0adb422bf591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shapes:
-  - {fileID: 21300000, guid: f5bbcef55c80d4bdb8d0f5a1ab2fa63c, type: 3}
-  - {fileID: 21300000, guid: da956dab9e5cd4f1299c4bdb96252606, type: 3}
-  - {fileID: 21300000, guid: 6cf0aef1feb7e4bc18840eda3cb36b3d, type: 3}
-  - {fileID: 21300000, guid: 5684b0d7e11da49e792fd6e95e95a8da, type: 3}
   moveSpeed: 10
   padding: 1
+  colorManager: {fileID: 7126233997535024064, guid: 9971eb916ef0946cd863b713ea1cbb1e, type: 3}
