@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1951604914021694423
+--- !u!1 &2910823491077235960
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1951604914021694420}
-  - component: {fileID: 1754230474}
+  - component: {fileID: 2910823491077235962}
+  - component: {fileID: 2910823491077235961}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: WallsGenerator
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1951604914021694420
+--- !u!4 &2910823491077235962
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1951604914021694423}
+  m_GameObject: {fileID: 2910823491077235960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,18 +31,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1754230474
+--- !u!114 &2910823491077235961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1951604914021694423}
+  m_GameObject: {fileID: 2910823491077235960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f410be82203414ec1ab40d48c710f466, type: 3}
+  m_Script: {fileID: 11500000, guid: ca4879af7c01f4edcae21ac79aef519c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  tile: {fileID: 5677709775569562500, guid: ab32503dc7e5d49f186c005cce217eef, type: 3}
-  passage: {fileID: 1193589515118637138, guid: bcd3bfb769719471498768529b454964, type: 3}
+  wall: {fileID: 1951604914021694423, guid: 37c4d6578db344535bf048fc4cdaa76d, type: 3}
