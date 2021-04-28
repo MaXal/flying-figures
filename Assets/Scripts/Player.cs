@@ -24,6 +24,11 @@ public class Player : MonoBehaviour
         ChangeShape();
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Destroy(gameObject);
+    }
+
     private void ChangeShape()
     {
         if (Input.GetButtonDown("Jump"))
