@@ -3,5 +3,6 @@
     Start,
     Play,
     Pause,
-    GameOver
+    GameOver,
+    Restart
 }
