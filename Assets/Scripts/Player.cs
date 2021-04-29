@@ -46,6 +46,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void SetUpTileBoundaries(GameObject tile)
+    {
+        yMin = tile.transform.position.y - 1;
+        yMax = tile.transform.position.y + 1;
+    }
+
     public event Action OnPlayerPassedWall;
 
     public static event Action OnPlayerDestroy;
