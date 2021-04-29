@@ -4,7 +4,7 @@ using UnityEngine;
 public class Wall : MonoBehaviour
 {
     [SerializeField] private GameObject tile;
-    [SerializeField] private ColorManager colorManager;
+    [SerializeField] private SpriteManager spriteManager;
 
     [Header("Generator")] [SerializeField] private int NumberOfBlackTiles = 3;
     [SerializeField] private int numberOfColors = 5;
@@ -28,7 +28,7 @@ public class Wall : MonoBehaviour
         {
             var generatedTile = Instantiate(tile, new Vector3(transform.position.x, 1 + i * 2, 0),
                 Quaternion.Euler(0, 0, 90));
-            generatedTile.GetComponent<SpriteRenderer>().sprite = colorManager.GetTileSprite((int) generatedColors[i]);
+            generatedTile.GetComponent<SpriteRenderer>().sprite = spriteManager.GetTileSprite((int) generatedColors[i]);
             generatedTile.GetComponent<Tile>().Color = generatedColors[i];
             generatedTile.transform.parent = gameObject.transform;
         }
@@ -39,7 +39,7 @@ public class Wall : MonoBehaviour
         var availableColors = new List<Color> {Color.Black};
         while (availableColors.Count < numberOfColors)
         {
-            var color = (Color) Random.Range(0, colorManager.GetNumberOfTileColors());
+            var color = (Color) Random.Range(0, spriteManager.GetNumberOfTileColors());
             if (!availableColors.Contains(color)) availableColors.Add(color);
         }
 

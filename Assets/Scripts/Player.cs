@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float padding = 0.7f;
     [SerializeField] private float paddingInsideTile = 0.1f;
-    [SerializeField] private ColorManager colorManager;
+    [SerializeField] private SpriteManager spriteManager;
 
     private Color color;
 
@@ -71,8 +71,8 @@ public class Player : MonoBehaviour
     {
         if (!Input.GetButtonDown("Jump")) return;
         currentShapeIndex++;
-        if (currentShapeIndex >= colorManager.GetNumberOfPlayerColors()) currentShapeIndex = 0;
-        GetComponent<SpriteRenderer>().sprite = colorManager.GetPlayerSprite(currentShapeIndex);
+        if (currentShapeIndex >= spriteManager.GetNumberOfPlayerColors()) currentShapeIndex = 0;
+        GetComponent<SpriteRenderer>().sprite = spriteManager.GetPlayerSprite(currentShapeIndex);
         color = (Color) currentShapeIndex;
     }
 

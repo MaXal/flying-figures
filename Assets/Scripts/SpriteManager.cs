@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorManager : MonoBehaviour
+public class SpriteManager : MonoBehaviour
 {
     [SerializeField] private List<Sprite> tileSprites;
     [SerializeField] private List<Sprite> playerSprites;

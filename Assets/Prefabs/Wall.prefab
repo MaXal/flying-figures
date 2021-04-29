@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f410be82203414ec1ab40d48c710f466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
   tile: {fileID: 5677709775569562500, guid: ab32503dc7e5d49f186c005cce217eef, type: 3}
-  colorManager: {fileID: 7126233997535024064, guid: 9971eb916ef0946cd863b713ea1cbb1e, type: 3}
+  spriteManager: {fileID: 7126233997535024064, guid: 9971eb916ef0946cd863b713ea1cbb1e, type: 3}
+  NumberOfBlackTiles: 3
+  numberOfColors: 5
