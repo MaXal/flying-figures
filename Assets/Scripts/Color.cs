@@ -1,8 +1,8 @@
 public enum Color
 {
-    Green = 0,
-    Blue = 1,
+    Blue = 0,
+    Yellow = 1,
     Red = 2,
-    Yellow = 3,
+    Green = 3,
     Black = 4
 }

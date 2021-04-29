@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private Color color = Color.Green;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float padding = 0.7f;
     [SerializeField] private float paddingInsideTile = 0.1f;
     [SerializeField] private SpriteManager spriteManager;
 
-    private Color color;
 
     private int currentShapeIndex = -1;
 
