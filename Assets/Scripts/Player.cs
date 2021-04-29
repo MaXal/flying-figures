@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
         currentShapeIndex++;
         if (currentShapeIndex >= colorManager.GetNumberOfPlayerColors()) currentShapeIndex = 0;
         GetComponent<SpriteRenderer>().sprite = colorManager.GetPlayerSprite(currentShapeIndex);
-        color = ColorManager.GetColorByIndex(currentShapeIndex);
+        color = (Color) currentShapeIndex;
     }
 
     private void Move()

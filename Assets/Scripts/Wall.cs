@@ -28,29 +28,29 @@ public class Wall : MonoBehaviour
         {
             var generatedTile = Instantiate(tile, new Vector3(transform.position.x, 1 + i * 2, 0),
                 Quaternion.Euler(0, 0, 90));
-            generatedTile.GetComponent<SpriteRenderer>().sprite = colorManager.GetTileSprite(generatedColors[i]);
-            generatedTile.GetComponent<Tile>().Color = ColorManager.GetColorByIndex(generatedColors[i]);
+            generatedTile.GetComponent<SpriteRenderer>().sprite = colorManager.GetTileSprite((int) generatedColors[i]);
+            generatedTile.GetComponent<Tile>().Color = generatedColors[i];
             generatedTile.transform.parent = gameObject.transform;
         }
     }
 
-    private List<int> Generator()
+    private List<Color> Generator()
     {
-        var availableColors = new List<int> {4};
+        var availableColors = new List<Color> {Color.Black};
         while (availableColors.Count < numberOfColors)
         {
-            var color = Random.Range(0, colorManager.GetNumberOfTileColors());
+            var color = (Color) Random.Range(0, colorManager.GetNumberOfTileColors());
             if (!availableColors.Contains(color)) availableColors.Add(color);
         }
 
-        var colorIndices = new List<int>();
+        var result = new List<Color>();
         var blackTiles = new List<int>();
         for (var i = 0; i < 9; i++)
         {
             var randomColor = availableColors[Random.Range(0, availableColors.Count)];
-            if (randomColor == 4) blackTiles.Add(i);
+            if (randomColor == Color.Black) blackTiles.Add(i);
 
-            colorIndices.Add(randomColor);
+            result.Add(randomColor);
         }
 
         //ensure number of black tiles
@@ -60,11 +60,11 @@ public class Wall : MonoBehaviour
             var index = Random.Range(0, 9);
             if (blackTiles.Contains(index)) continue;
             blackTiles.Add(index);
-            colorIndices[index] = 4;
+            result[index] = Color.Black;
             break;
         }
 
-        return colorIndices;
+        return result;
     }
 
     private void Move()
