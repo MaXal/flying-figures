@@ -25,8 +25,19 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Move();
-        ChangeShape();
+        switch (GameManager.GameState)
+        {
+            case GameState.Start:
+                break;
+            case GameState.Play:
+                Move();
+                ChangeShape();
+                break;
+            case GameState.Pause:
+                break;
+            case GameState.GameOver:
+                break;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
