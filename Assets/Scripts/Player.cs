@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     private Color color;
 
     private int currentShapeIndex = -1;
+
+    private int enteredIntoTiles;
     private float xMax;
     private float xMin;
     private float yMax;
@@ -30,16 +32,22 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Tile") && other.gameObject.GetComponent<Tile>().Color != color)
+        {
             DestroyPlayer();
+        }
         else
+        {
+            enteredIntoTiles++;
             SetUpTileBoundaries(other.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Tile")) return;
-        OnPlayerPassedWall?.Invoke();
         SetUpWorldMoveBoundaries();
+        enteredIntoTiles--;
+        if (enteredIntoTiles == 0) OnPlayerPassedWall?.Invoke();
     }
 
     private void SetUpTileBoundaries(GameObject tile)
