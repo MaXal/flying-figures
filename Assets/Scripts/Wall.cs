@@ -5,7 +5,7 @@ public class Wall : MonoBehaviour
     [SerializeField] private GameObject tile;
     [SerializeField] private ColorManager colorManager;
 
-    private float moveSpeed = 1f;
+    private float moveSpeed;
 
     private void Start()
     {
