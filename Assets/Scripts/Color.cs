@@ -1,3 +1,5 @@
+// ReSharper disable UnusedMember.Global
+
 public enum Color
 {
     Blue = 0,
