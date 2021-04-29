@@ -24,7 +24,7 @@ public class Wall : MonoBehaviour
     {
         for (var i = 0; i < 9; i++)
         {
-            var randomIndex = Random.Range(0, colorManager.GetNumberOfColors());
+            var randomIndex = Random.Range(0, colorManager.GetNumberOfTileColors());
             var generatedTile = Instantiate(tile, new Vector3(transform.position.x, 1 + i * 2, 0),
                 Quaternion.Euler(0, 0, 90));
             generatedTile.GetComponent<SpriteRenderer>().sprite = colorManager.GetTileSprite(randomIndex);

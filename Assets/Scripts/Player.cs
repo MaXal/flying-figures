@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     {
         if (!Input.GetButtonDown("Jump")) return;
         currentShapeIndex++;
-        if (currentShapeIndex >= colorManager.GetNumberOfColors()) currentShapeIndex = 0;
+        if (currentShapeIndex >= colorManager.GetNumberOfPlayerColors()) currentShapeIndex = 0;
         GetComponent<SpriteRenderer>().sprite = colorManager.GetPlayerSprite(currentShapeIndex);
         color = ColorManager.GetColorByIndex(currentShapeIndex);
     }

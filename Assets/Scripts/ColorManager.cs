@@ -15,6 +15,7 @@ public class ColorManager : MonoBehaviour
             1 => Color.Green,
             2 => Color.Yellow,
             3 => Color.Red,
+            4 => Color.Black,
             _ => throw new ArgumentException("Invalid index")
         };
     }
@@ -29,8 +30,13 @@ public class ColorManager : MonoBehaviour
         return tileSprites[index];
     }
 
-    public int GetNumberOfColors()
+    public int GetNumberOfTileColors()
     {
         return tileSprites.Count;
+    }
+
+    public int GetNumberOfPlayerColors()
+    {
+        return playerSprites.Count;
     }
 }

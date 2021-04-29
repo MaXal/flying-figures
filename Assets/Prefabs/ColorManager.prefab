@@ -48,6 +48,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bb0bd6a12f1df4f769e02c51a5373635, type: 3}
   - {fileID: 21300000, guid: 4c08c19c125984bc2859b12b8de81e84, type: 3}
   - {fileID: 21300000, guid: e244757466c604de8b5df12943784d00, type: 3}
+  - {fileID: 21300000, guid: 1266500e6994d4719ae88bf0c988b9cd, type: 3}
   playerSprites:
   - {fileID: 21300000, guid: f5bbcef55c80d4bdb8d0f5a1ab2fa63c, type: 3}
   - {fileID: 21300000, guid: 5684b0d7e11da49e792fd6e95e95a8da, type: 3}

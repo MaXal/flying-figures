@@ -3,5 +3,6 @@ public enum Color
     Green,
     Blue,
     Red,
-    Yellow
+    Yellow,
+    Black
 }
