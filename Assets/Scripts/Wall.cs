@@ -1,4 +1,5 @@
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Wall : MonoBehaviour
 {
@@ -14,7 +15,18 @@ public class Wall : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        switch (GameManager.GameState)
+        {
+            case GameState.Start:
+                break;
+            case GameState.Play:
+                Move();
+                break;
+            case GameState.Pause:
+                break;
+            case GameState.GameOver:
+                break;
+        }
     }
 
     private void CreateTiles()
