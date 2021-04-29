@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private GameObject tile;
     [SerializeField] private ColorManager colorManager;
+
+    private float moveSpeed = 1f;
 
     private void Start()
     {
@@ -34,6 +35,11 @@ public class Wall : MonoBehaviour
         var cachedTransform = transform;
         cachedTransform.position = new Vector2(cachedTransform.position.x - Time.smoothDeltaTime * moveSpeed, 0);
         if (transform.position.x < -1) WallDestroyed();
+    }
+
+    public void SetWallSpeed(float speed)
+    {
+        moveSpeed = speed;
     }
 
     private void WallDestroyed()

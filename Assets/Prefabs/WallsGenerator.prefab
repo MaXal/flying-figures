@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wall: {fileID: 1951604914021694423, guid: 37c4d6578db344535bf048fc4cdaa76d, type: 3}
+  moveSpeed: 5
+  wallInitialLocation: 32
