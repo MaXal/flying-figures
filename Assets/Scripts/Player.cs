@@ -4,7 +4,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 10f;
-    [SerializeField] private float padding = 1f;
+    [SerializeField] private float padding = 0.7f;
+    [SerializeField] private float paddingInsideTile = 0.1f;
     [SerializeField] private ColorManager colorManager;
 
     private Color color;
@@ -44,8 +45,8 @@ public class Player : MonoBehaviour
     private void SetUpTileBoundaries(GameObject tile)
     {
         var position = tile.transform.position;
-        yMin = position.y - 0.1f;
-        yMax = position.y + 0.1f;
+        yMin = position.y - paddingInsideTile;
+        yMax = position.y + paddingInsideTile;
     }
 
     public event Action OnPlayerPassedWall;
