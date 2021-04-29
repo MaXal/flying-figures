@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Wall : MonoBehaviour
 {
@@ -17,8 +15,6 @@ public class Wall : MonoBehaviour
     {
         Move();
     }
-
-    public event Action OnWallDestroy;
 
     private void CreateTiles()
     {
@@ -42,7 +38,6 @@ public class Wall : MonoBehaviour
 
     private void WallDestroyed()
     {
-        OnWallDestroy?.Invoke();
         Destroy(gameObject);
     }
 }

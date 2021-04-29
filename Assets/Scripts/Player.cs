@@ -28,9 +28,16 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var tile = other.gameObject.GetComponent<Tile>();
-        if (tile != null && tile.Color != color) DestroyPlayer();
+        if (other.gameObject.CompareTag("Tile") && other.gameObject.GetComponent<Tile>().Color != color)
+            DestroyPlayer();
     }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Tile")) OnPlayerPassedWall?.Invoke();
+    }
+
+    public event Action OnPlayerPassedWall;
 
     public static event Action OnPlayerDestroy;
 
