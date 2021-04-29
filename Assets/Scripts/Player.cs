@@ -9,7 +9,9 @@ public class Player : MonoBehaviour
 
     private Color color;
 
-    private int currentShapeIndex;
+    private int currentShapeIndex = -1;
+
+    private bool enteredTile;
     private float xMax;
     private float xMin;
     private float yMax;
@@ -17,7 +19,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        SetUpMoveBoundaries();
+        SetUpWorldMoveBoundaries();
     }
 
     private void Update()
@@ -28,13 +30,20 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Tile") && other.gameObject.GetComponent<Tile>().Color != color)
+        if (other.gameObject.CompareTag("Tile") && other.gameObject.GetComponent<Tile>().Color != color && !enteredTile)
             DestroyPlayer();
+        else
+            enteredTile = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Tile")) OnPlayerPassedWall?.Invoke();
+        if (other.gameObject.CompareTag("Tile"))
+        {
+            OnPlayerPassedWall?.Invoke();
+            enteredTile = false;
+            SetUpWorldMoveBoundaries();
+        }
     }
 
     public event Action OnPlayerPassedWall;
@@ -67,7 +76,7 @@ public class Player : MonoBehaviour
         transform.position = new Vector2(newXPos, newYPos);
     }
 
-    private void SetUpMoveBoundaries()
+    private void SetUpWorldMoveBoundaries()
     {
         var gameCamera = Camera.main;
         if (gameCamera == null) return;

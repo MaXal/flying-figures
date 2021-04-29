@@ -12,6 +12,6 @@ public class WallsGenerator : MonoBehaviour
 
     private void GenerateNewWall()
     {
-        Instantiate(wall, new Vector3(33, 0, 0), Quaternion.identity);
+        Instantiate(wall, new Vector3(30, 0, 0), Quaternion.identity);
     }
 }

@@ -12,9 +12,9 @@ public class ColorManager : MonoBehaviour
         return index switch
         {
             0 => Color.Blue,
-            1 => Color.Green,
-            2 => Color.Yellow,
-            3 => Color.Red,
+            1 => Color.Yellow,
+            2 => Color.Red,
+            3 => Color.Green,
             4 => Color.Black,
             _ => throw new ArgumentException("Invalid index")
         };
