@@ -10,8 +10,6 @@ public class Player : MonoBehaviour
     private Color color;
 
     private int currentShapeIndex = -1;
-
-    private bool enteredTile;
     private float xMax;
     private float xMin;
     private float yMax;
@@ -30,26 +28,24 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Tile") && other.gameObject.GetComponent<Tile>().Color != color && !enteredTile)
+        if (other.gameObject.CompareTag("Tile") && other.gameObject.GetComponent<Tile>().Color != color)
             DestroyPlayer();
         else
-            enteredTile = true;
+            SetUpTileBoundaries(other.gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Tile"))
-        {
-            OnPlayerPassedWall?.Invoke();
-            enteredTile = false;
-            SetUpWorldMoveBoundaries();
-        }
+        if (!other.gameObject.CompareTag("Tile")) return;
+        OnPlayerPassedWall?.Invoke();
+        SetUpWorldMoveBoundaries();
     }
 
     private void SetUpTileBoundaries(GameObject tile)
     {
-        yMin = tile.transform.position.y - 1;
-        yMax = tile.transform.position.y + 1;
+        var position = tile.transform.position;
+        yMin = position.y - 0.1f;
+        yMax = position.y + 0.1f;
     }
 
     public event Action OnPlayerPassedWall;
