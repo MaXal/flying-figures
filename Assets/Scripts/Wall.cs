@@ -15,18 +15,9 @@ public class Wall : MonoBehaviour
 
     private void Update()
     {
-        switch (GameManager.GameState)
-        {
-            case GameState.Start:
-                break;
-            case GameState.Play:
-                Move();
-                break;
-            case GameState.Pause:
-                break;
-            case GameState.GameOver:
-                break;
-        }
+        if (GameManager.GameState != GameState.Play) return;
+        
+        Move();
     }
 
     private void CreateTiles()
