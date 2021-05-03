@@ -12,6 +12,7 @@ public class BackgroundParticles : MonoBehaviour
 
     private void Update()
     {
+        // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
         switch (GameManager.GameState)
         {
             case GameState.Play when particles.isPaused:
