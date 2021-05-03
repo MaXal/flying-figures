@@ -56,7 +56,9 @@ public class Wall : MonoBehaviour
         var blackTiles = new List<int>();
         for (var i = 0; i < 9; i++)
         {
-            var randomColor = availableColors[Random.Range(0, availableColors.Count)];
+            var randomColor = (i == 0 || i == 8) && Random.Range(0, 4) > 0
+                ? Color.Black
+                : availableColors[Random.Range(0, availableColors.Count)];
             if (randomColor == Color.Black) blackTiles.Add(i);
 
             result.Add(randomColor);
