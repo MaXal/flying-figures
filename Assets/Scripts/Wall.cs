@@ -6,9 +6,6 @@ public class Wall : MonoBehaviour
     [SerializeField] private GameObject tile;
     [SerializeField] private SpriteManager spriteManager;
 
-    [Header("Generator")] [SerializeField] private int NumberOfBlackTiles = 3;
-    [SerializeField] private int numberOfColors = 5;
-
     private float moveSpeed;
 
     private void Start()
@@ -25,7 +22,7 @@ public class Wall : MonoBehaviour
 
     private void CreateTiles()
     {
-        var generatedColors = Generator();
+        var generatedColors = Generator(new Range(1, 5), new Range(1, 3), new Range(1, 2));
         for (var i = 0; i < 9; i++)
         {
             var generatedTile = Instantiate(tile, new Vector3(transform.position.x, 1 + i * 2, 0),
@@ -36,9 +33,19 @@ public class Wall : MonoBehaviour
         }
     }
 
-    private List<Color> Generator()
+    private List<Color> Generator(Range colorsRange, Range blackSquaresRange, Range singleColorInRowRange)
     {
+        if (colorsRange.Min < 2) colorsRange.Min = 2;
+        if (colorsRange.Max > 5) colorsRange.Max = 5;
+        var numberOfColors = colorsRange.RandomValue;
         var availableColors = new List<Color> {Color.Black};
+
+        if (singleColorInRowRange.Min == 0) singleColorInRowRange.Min = 1;
+        var singleColorInRow = singleColorInRowRange.RandomValue; //todo implement this
+
+        var numberOfBlackTiles = blackSquaresRange.RandomValue;
+        //todo implement restrictions based on availableColors and singleColorInRow
+
         while (availableColors.Count < numberOfColors)
         {
             var color = (Color) Random.Range(0, spriteManager.GetNumberOfTileColors());
@@ -56,7 +63,7 @@ public class Wall : MonoBehaviour
         }
 
         //ensure number of black tiles
-        while (blackTiles.Count < NumberOfBlackTiles)
+        while (blackTiles.Count < numberOfBlackTiles)
         while (true)
         {
             var index = Random.Range(0, 9);
