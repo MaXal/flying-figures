@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Wall : MonoBehaviour
 {
@@ -19,8 +18,8 @@ public class Wall : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.GameState != GameState.Play) return;
-        
+        if (GameManager.GameState == GameState.Pause) return;
+
         Move();
     }
 

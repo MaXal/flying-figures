@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         if (GameManager.GameState != GameState.Play) return;
-        
+
         Move();
         ChangeShape();
     }
@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
 
     private void DestroyPlayer()
     {
+        GameManager.GameState = GameState.GameOver;
         OnPlayerDestroy?.Invoke();
         Destroy(gameObject);
     }
