@@ -4,6 +4,7 @@ public class WallsGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject wall;
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float speedModifier = 1f;
     [SerializeField] private float wallInitialLocation = 32f;
 
     private GameObject generatedWall;
@@ -18,6 +19,7 @@ public class WallsGenerator : MonoBehaviour
     private void GenerateNewWall()
     {
         generatedWall.GetComponent<Wall>().SetWallSpeed(moveSpeed);
+        moveSpeed += speedModifier;
         generatedWall = Instantiate(wall, new Vector3(wallInitialLocation, 0, 0), Quaternion.identity);
     }
 }
