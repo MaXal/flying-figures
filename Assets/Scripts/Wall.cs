@@ -22,7 +22,7 @@ public class Wall : MonoBehaviour
 
     private void CreateTiles()
     {
-        var generatedColors = Generator(new Range(1, 5), new Range(1, 3), new Range(1, 2));
+        var generatedColors = Generator(new Range(1, 5), new Range(1, 3), new Range(1, 1));
         for (var i = 0; i < 9; i++)
         {
             var generatedTile = Instantiate(tile, new Vector3(transform.position.x, 1 + i * 2, 0),
@@ -41,8 +41,10 @@ public class Wall : MonoBehaviour
         var availableColors = new List<Color> {Color.Black};
 
         if (singleColorInRowRange.Min == 0) singleColorInRowRange.Min = 1;
-        var singleColorInRow = singleColorInRowRange.RandomValue; //todo implement this
+        var maxSingleColorInRow = singleColorInRowRange.RandomValue;
 
+        if (blackSquaresRange.Min < 2) blackSquaresRange.Min = 2;
+        if (blackSquaresRange.Max > 8) blackSquaresRange.Max = 8;
         var numberOfBlackTiles = blackSquaresRange.RandomValue;
         //todo implement restrictions based on availableColors and singleColorInRow
 
@@ -54,12 +56,31 @@ public class Wall : MonoBehaviour
 
         var result = new List<Color>();
         var blackTiles = new List<int>();
+        var tilesInRow = 1;
         for (var i = 0; i < 9; i++)
         {
             var randomColor = (i == 0 || i == 8) && Random.Range(0, 4) > 0
                 ? Color.Black
                 : availableColors[Random.Range(0, availableColors.Count)];
             if (randomColor == Color.Black) blackTiles.Add(i);
+
+            if (i > 0 && result[i - 1] == randomColor)
+            {
+                tilesInRow++;
+                if (tilesInRow > maxSingleColorInRow)
+                    while (true)
+                    {
+                        var adjustedColor = availableColors[Random.Range(0, availableColors.Count)];
+                        if (adjustedColor == randomColor) continue;
+                        tilesInRow = 1;
+                        randomColor = adjustedColor;
+                        break;
+                    }
+            }
+            else
+            {
+                tilesInRow = 1;
+            }
 
             result.Add(randomColor);
         }
