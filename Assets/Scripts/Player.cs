@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float padding = 0.7f;
     [SerializeField] private float paddingInsideTile = 0.1f;
     [SerializeField] private SpriteManager spriteManager;
+    [SerializeField] private float delayForWallDestruction = 0.1f;
 
 
     private int currentShapeIndex = -1;
@@ -50,6 +51,7 @@ public class Player : MonoBehaviour
         SetUpWorldMoveBoundaries();
         enteredIntoTiles--;
         if (enteredIntoTiles == 0) OnPlayerPassedWall?.Invoke();
+        this.Invoke(() => { Destroy(other.gameObject.transform.parent.gameObject); }, delayForWallDestruction);
     }
 
     private void SetUpTileBoundaries(GameObject tile)
