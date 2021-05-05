@@ -65,26 +65,34 @@ public class Wall : MonoBehaviour
         }
 
         EnsureNumberOfColorsInRow(result, availableColors, maxSingleColorInRow);
-        EnsureNumberOfBlackTiles(result, numberOfBlackTiles);
+        EnsureNumberOfBlackTiles(result, availableColors, numberOfBlackTiles);
 
         return result;
     }
 
-    private static void EnsureNumberOfBlackTiles(IList<Color> result, int numberOfBlackTiles)
+    private static void EnsureNumberOfBlackTiles(IList<Color> result, IReadOnlyList<Color> availableColors,
+        int numberOfBlackTiles)
     {
         var blackTiles = new List<int>();
         for (var i = 0; i < NumberOfTiles; i++)
             if (result[i] == Color.Black)
                 blackTiles.Add(i);
 
-        while (blackTiles.Count < numberOfBlackTiles)
-        while (true)
+        while (blackTiles.Count != numberOfBlackTiles)
         {
             var index = Random.Range(0, NumberOfTiles);
-            if (blackTiles.Contains(index)) continue;
-            blackTiles.Add(index);
-            result[index] = Color.Black;
-            break;
+            if (blackTiles.Count < numberOfBlackTiles)
+            {
+                if (blackTiles.Contains(index)) continue;
+                blackTiles.Add(index);
+                result[index] = Color.Black;
+            }
+            else
+            {
+                if (!blackTiles.Contains(index)) continue;
+                blackTiles.Remove(index);
+                result[index] = availableColors[Random.Range(0, availableColors.Count)];
+            }
         }
     }
 
