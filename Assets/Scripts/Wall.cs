@@ -23,7 +23,10 @@ public class Wall : MonoBehaviour
 
     private void CreateTiles()
     {
-        var generatedColors = Generator(new Range(1, 5), new Range(1, 3), new Range(1, 1));
+        var generatedColors = Generator(
+            WaveManager.Current.ColorsRange, 
+            WaveManager.Current.BlackSquaresRange, 
+            WaveManager.Current.SingleColorInRowRange);
         for (var i = 0; i < NumberOfTiles; i++)
         {
             var generatedTile = Instantiate(tile, new Vector3(transform.position.x, 1 + i * 2, 0),

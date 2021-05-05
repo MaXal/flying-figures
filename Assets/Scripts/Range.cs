@@ -1,8 +1,13 @@
 using System;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
+[Serializable]
 public class Range
 {
+    [SerializeField] private int max;
+    [SerializeField] private int min;
+
     public Range(int min, int max)
     {
         if (min > max) throw new ArgumentException("Max value " + max + " is lower than " + min);
@@ -13,8 +18,17 @@ public class Range
         Max = max;
     }
 
-    public int Max { get; set; }
-    public int Min { get; set; }
+    public int Max
+    {
+        get => max;
+        set => max = value;
+    }
+
+    public int Min
+    {
+        get => min;
+        set => min = value;
+    }
 
     public int RandomValue => Random.Range(Min, Max);
 }

@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
-{
-    public static GameState GameState;
+{   
+    public static GameState GameState { get; set; }
 
     private void Start()
     {
