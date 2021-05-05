@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
+    private const int NumberOfTiles = 9;
     [SerializeField] private GameObject tile;
     [SerializeField] private SpriteManager spriteManager;
 
@@ -23,7 +24,7 @@ public class Wall : MonoBehaviour
     private void CreateTiles()
     {
         var generatedColors = Generator(new Range(1, 5), new Range(1, 3), new Range(1, 1));
-        for (var i = 0; i < 9; i++)
+        for (var i = 0; i < NumberOfTiles; i++)
         {
             var generatedTile = Instantiate(tile, new Vector3(transform.position.x, 1 + i * 2, 0),
                 Quaternion.Euler(0, 0, 90));
@@ -46,7 +47,6 @@ public class Wall : MonoBehaviour
         if (blackSquaresRange.Min < 2) blackSquaresRange.Min = 2;
         if (blackSquaresRange.Max > 8) blackSquaresRange.Max = 8;
         var numberOfBlackTiles = blackSquaresRange.RandomValue;
-        //todo implement restrictions based on availableColors and singleColorInRow
 
         while (availableColors.Count < numberOfColors)
         {
@@ -55,48 +55,65 @@ public class Wall : MonoBehaviour
         }
 
         var result = new List<Color>();
-        var blackTiles = new List<int>();
-        var tilesInRow = 1;
-        for (var i = 0; i < 9; i++)
+
+        for (var i = 0; i < NumberOfTiles; i++)
         {
-            var randomColor = (i == 0 || i == 8) && Random.Range(0, 4) > 0
+            var randomColor = (i == 0 || i == NumberOfTiles - 1) && Random.Range(0, 4) > 0
                 ? Color.Black
                 : availableColors[Random.Range(0, availableColors.Count)];
-            if (randomColor == Color.Black) blackTiles.Add(i);
-
-            if (i > 0 && result[i - 1] == randomColor)
-            {
-                tilesInRow++;
-                if (tilesInRow > maxSingleColorInRow)
-                    while (true)
-                    {
-                        var adjustedColor = availableColors[Random.Range(0, availableColors.Count)];
-                        if (adjustedColor == randomColor) continue;
-                        tilesInRow = 1;
-                        randomColor = adjustedColor;
-                        break;
-                    }
-            }
-            else
-            {
-                tilesInRow = 1;
-            }
-
             result.Add(randomColor);
         }
 
-        //ensure number of black tiles
+        EnsureNumberOfColorsInRow(result, availableColors, maxSingleColorInRow);
+        EnsureNumberOfBlackTiles(result, numberOfBlackTiles);
+
+        return result;
+    }
+
+    private static void EnsureNumberOfBlackTiles(IList<Color> result, int numberOfBlackTiles)
+    {
+        var blackTiles = new List<int>();
+        for (var i = 0; i < NumberOfTiles; i++)
+            if (result[i] == Color.Black)
+                blackTiles.Add(i);
+
         while (blackTiles.Count < numberOfBlackTiles)
         while (true)
         {
-            var index = Random.Range(0, 9);
+            var index = Random.Range(0, NumberOfTiles);
             if (blackTiles.Contains(index)) continue;
             blackTiles.Add(index);
             result[index] = Color.Black;
             break;
         }
+    }
 
-        return result;
+    private static void EnsureNumberOfColorsInRow(IList<Color> result, IReadOnlyList<Color> availableColors,
+        int maxSingleColorInRow)
+    {
+        var tilesInRow = 1;
+        for (var i = 1; i < NumberOfTiles; i++)
+        {
+            var previousColor = result[i - 1];
+            var color = result[i];
+            if (color == previousColor || color == Color.Black)
+            {
+                tilesInRow++;
+                if (tilesInRow <= maxSingleColorInRow) continue;
+                while (true)
+                {
+                    var newColor = availableColors[Random.Range(0, availableColors.Count)];
+                    if (newColor == previousColor) continue;
+                    tilesInRow = 1;
+                    result[i] = newColor;
+                    break;
+                }
+            }
+            else
+            {
+                tilesInRow = 1;
+            }
+        }
     }
 
     private void Move()
