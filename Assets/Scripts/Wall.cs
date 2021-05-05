@@ -44,8 +44,10 @@ public class Wall : MonoBehaviour
         if (singleColorInRowRange.Min == 0) singleColorInRowRange.Min = 1;
         var maxSingleColorInRow = singleColorInRowRange.RandomValue;
 
+
         if (blackSquaresRange.Min < 2) blackSquaresRange.Min = 2;
         if (blackSquaresRange.Max > 8) blackSquaresRange.Max = 8;
+        if (colorsRange.Min == 2) blackSquaresRange.Min = 2 + (NumberOfTiles - 2) / (maxSingleColorInRow + 1);
         var numberOfBlackTiles = blackSquaresRange.RandomValue;
 
         while (availableColors.Count < numberOfColors)
