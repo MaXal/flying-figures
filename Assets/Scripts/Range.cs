@@ -30,5 +30,5 @@ public class Range
         set => min = value;
     }
 
-    public int RandomValue => Random.Range(Min, Max);
+    public int RandomValue => Random.Range(Min, Max + 1);
 }

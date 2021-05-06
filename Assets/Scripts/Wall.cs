@@ -23,7 +23,7 @@ public class Wall : MonoBehaviour
 
     private void CreateTiles()
     {
-        var generatedColors = Generator(
+        var generatedColors = Generate(
             WaveManager.Current.ColorsRange, 
             WaveManager.Current.BlackSquaresRange, 
             WaveManager.Current.SingleColorInRowRange);
@@ -37,22 +37,16 @@ public class Wall : MonoBehaviour
         }
     }
 
-    private List<Color> Generator(Range colorsRange, Range blackSquaresRange, Range singleColorInRowRange)
+    private List<Color> Generate(Range colors, Range blackSquares, Range singleColorInRow)
     {
-        if (colorsRange.Min < 2) colorsRange.Min = 2;
-        if (colorsRange.Max > 5) colorsRange.Max = 5;
-        var numberOfColors = colorsRange.RandomValue;
+        (colors, blackSquares, singleColorInRow) =
+            VerifyAndCorrectRanges(colors, blackSquares, singleColorInRow);
+
+        var maxSingleColorInRow = singleColorInRow.RandomValue;
+        if (colors.Min == 2) blackSquares.Min = 2 + (NumberOfTiles - 2) / (maxSingleColorInRow + 1);
+
         var availableColors = new List<Color> {Color.Black};
-
-        if (singleColorInRowRange.Min == 0) singleColorInRowRange.Min = 1;
-        var maxSingleColorInRow = singleColorInRowRange.RandomValue;
-
-
-        if (blackSquaresRange.Min < 2) blackSquaresRange.Min = 2;
-        if (blackSquaresRange.Max > 8) blackSquaresRange.Max = 8;
-        if (colorsRange.Min == 2) blackSquaresRange.Min = 2 + (NumberOfTiles - 2) / (maxSingleColorInRow + 1);
-        var numberOfBlackTiles = blackSquaresRange.RandomValue;
-
+        var numberOfColors = colors.RandomValue;
         while (availableColors.Count < numberOfColors)
         {
             var color = (Color) Random.Range(0, spriteManager.GetNumberOfTileColors());
@@ -60,19 +54,30 @@ public class Wall : MonoBehaviour
         }
 
         var result = new List<Color>();
-
         for (var i = 0; i < NumberOfTiles; i++)
         {
-            var randomColor = (i == 0 || i == NumberOfTiles - 1) && Random.Range(0, 4) > 0
+            var randomColor = (i == 0 || i == NumberOfTiles - 1) && Random.Range(0, 5) > 0
                 ? Color.Black
                 : availableColors[Random.Range(0, availableColors.Count)];
             result.Add(randomColor);
         }
 
+        var numberOfBlackTiles = blackSquares.RandomValue;
         EnsureNumberOfColorsInRow(result, availableColors, maxSingleColorInRow);
         EnsureNumberOfBlackTiles(result, availableColors, numberOfBlackTiles);
 
         return result;
+    }
+
+    private static (Range, Range, Range) VerifyAndCorrectRanges(Range colors, Range blackSquares, Range singleColorInRow)
+    {
+        if (colors.Min < 2) colors.Min = 2;
+        if (colors.Max > 5) colors.Max = 5;
+        if (blackSquares.Min < 2) blackSquares.Min = 2;
+        if (blackSquares.Max > 8) blackSquares.Max = 8;
+        if (singleColorInRow.Min == 0) singleColorInRow.Min = 1;
+
+        return (colors, blackSquares, singleColorInRow);
     }
 
     private static void EnsureNumberOfBlackTiles(IList<Color> result, IReadOnlyList<Color> availableColors,
