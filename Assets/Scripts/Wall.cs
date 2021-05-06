@@ -31,7 +31,8 @@ public class Wall : MonoBehaviour
         {
             var generatedTile = Instantiate(tile, new Vector3(transform.position.x, 1 + i * 2, 0),
                 Quaternion.Euler(0, 0, 90));
-            generatedTile.GetComponent<SpriteRenderer>().sprite = spriteManager.GetTileSprite((int) generatedColors[i]);
+            generatedTile.GetComponent<SpriteRenderer>().sprite = 
+                spriteManager.GetTileSprite((int) generatedColors[i]);
             generatedTile.GetComponent<Tile>().Color = generatedColors[i];
             generatedTile.transform.parent = gameObject.transform;
         }
@@ -56,7 +57,7 @@ public class Wall : MonoBehaviour
         var result = new List<Color>();
         for (var i = 0; i < NumberOfTiles; i++)
         {
-            var randomColor = (i == 0 || i == NumberOfTiles - 1) && Random.Range(0, 5) > 0
+            var randomColor = (i == 0 || i == NumberOfTiles - 1) && Random.Range(0, 10) > 0
                 ? Color.Black
                 : availableColors[Random.Range(0, availableColors.Count)];
             result.Add(randomColor);
@@ -69,7 +70,8 @@ public class Wall : MonoBehaviour
         return result;
     }
 
-    private static (Range, Range, Range) VerifyAndCorrectRanges(Range colors, Range blackSquares, Range singleColorInRow)
+    private static (Range, Range, Range) 
+        VerifyAndCorrectRanges(Range colors, Range blackSquares, Range singleColorInRow)
     {
         if (colors.Min < 2) colors.Min = 2;
         if (colors.Max > 5) colors.Max = 5;
@@ -110,7 +112,7 @@ public class Wall : MonoBehaviour
         int maxSingleColorInRow)
     {
         var tilesInRow = 1;
-        for (var i = 1; i < NumberOfTiles; i++)
+        for (var i = 2; i < NumberOfTiles - 1; i++)
         {
             var previousColor = result[i - 1];
             var color = result[i];
