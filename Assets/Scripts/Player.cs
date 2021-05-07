@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -51,7 +52,13 @@ public class Player : MonoBehaviour
         SetUpWorldMoveBoundaries();
         enteredIntoTiles--;
         if (enteredIntoTiles == 0) OnPlayerPassedWall?.Invoke();
-        this.Invoke(() => { Destroy(other.gameObject.transform.parent.gameObject); }, delayForWallDestruction);
+        StartCoroutine(DestroyWall(other.gameObject.transform.parent.gameObject));
+    }
+
+    private IEnumerator DestroyWall(GameObject wall)
+    {
+        yield return new WaitForSeconds(delayForWallDestruction);
+        Destroy(wall);
     }
 
     private void SetUpTileBoundaries(GameObject tile)
