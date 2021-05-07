@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 936c59eabf964d509c34fcd0b7b09e59, type: 3}
-  m_Name: Waves Description
+  m_Name: Waves
   m_EditorClassIdentifier: 
   waves:
   - ColorsRange:
-      max: 1
-      min: 5
+      max: 5
+      min: 1
     BlackSquaresRange:
-      max: 1
-      min: 3
+      max: 3
+      min: 1
     SingleColorInRowRange:
       max: 1
       min: 1
