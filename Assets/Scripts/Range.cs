@@ -12,7 +12,6 @@ public class Range
     {
         if (min > max) throw new ArgumentException("Max value " + max + " is lower than " + min);
         if (min < 0) throw new ArgumentOutOfRangeException(nameof(min));
-        if (max < 0) throw new ArgumentOutOfRangeException(nameof(max));
 
         Min = min;
         Max = max;
