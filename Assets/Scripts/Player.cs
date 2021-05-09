@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteManager spriteManager;
     [SerializeField] private float delayForWallDestruction = 0.1f;
 
-
     private int currentShapeIndex = -1;
 
     private int enteredIntoTiles;
@@ -19,7 +18,7 @@ public class Player : MonoBehaviour
     private float xMin;
     private float yMax;
     private float yMin;
-
+    
     private void Start()
     {
         SetUpWorldMoveBoundaries();

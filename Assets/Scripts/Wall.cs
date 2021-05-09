@@ -11,6 +11,16 @@ public class Wall : MonoBehaviour
 
     private float moveSpeed;
 
+    private static float PlayerSize
+    {
+        get
+        {
+            var player = GameObject.FindGameObjectWithTag(nameof(Player));
+            var scale = player.transform.localScale;
+            return player.GetComponent<BoxCollider2D>().size.x * scale.x;
+        }
+    }
+
     private void Start()
     {
         CreateTiles();
@@ -36,8 +46,52 @@ public class Wall : MonoBehaviour
                 Quaternion.Euler(0, 0, 90));
             generatedTile.GetComponent<SpriteRenderer>().sprite = 
                 spriteManager.GetTileSprite((int) generatedColors[i]);
-            generatedTile.GetComponent<Tile>().Color = generatedColors[i];
+            var color = generatedColors[i];
+            generatedTile.GetComponent<Tile>().Color = color;
             generatedTile.transform.parent = gameObject.transform;
+
+            if (color != Color.Black) continue;
+            
+            var previousColored = PreviousIsColored(generatedColors, i);
+            var nextColored = NextIsColored(generatedColors, i);
+            
+            if (previousColored || nextColored)
+            {
+                CorrectColliderSize(generatedTile, previousColored, nextColored);
+            }
+        }
+    }
+    
+    private static bool PreviousIsColored(IReadOnlyList<Color> colors, int i)
+    {
+        if (i == 0) return false;
+        return colors[i - 1] != Color.Black;
+    }
+        
+    private static bool NextIsColored(IReadOnlyList<Color> colors, int i)
+    {
+        if (i == NumberOfTiles - 1) return false;
+        return colors[i + 1] != Color.Black;
+    }
+
+    private static void CorrectColliderSize(GameObject generatedTile, bool previousColored, bool nextColored)
+    {
+        var myCollider = generatedTile.GetComponent<BoxCollider2D>();
+        var oldSize = myCollider.size;
+
+        if (previousColored && nextColored)
+        {
+            myCollider.size = new Vector2(oldSize.x - (PlayerSize * 0.95f * 2), myCollider.size.y);
+        }
+        else
+        {
+            myCollider.size = new Vector2(oldSize.x - PlayerSize * 0.95f, oldSize.y);
+
+            var newSize = myCollider.size;
+            var offset = myCollider.offset;
+            myCollider.offset = previousColored 
+                ? new Vector2((oldSize.x - newSize.x) * 0.5f, offset.y) 
+                : new Vector2((oldSize.x - newSize.x) * -0.5f, offset.y);
         }
     }
 

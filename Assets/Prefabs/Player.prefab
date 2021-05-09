@@ -131,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.08, y: 1.08}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &2907012159100033404
 MonoBehaviour:
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 3
-  moveSpeed: 15
+  moveSpeed: 18
   padding: 0.7
   paddingInsideTile: 0.5
   spriteManager: {fileID: 7126233997535024064, guid: 9971eb916ef0946cd863b713ea1cbb1e, type: 3}
