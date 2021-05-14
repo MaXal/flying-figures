@@ -9,8 +9,7 @@ public class Score : MonoBehaviour
     private void Start()
     {
         text = GetComponent<TextMeshProUGUI>();
-        FindObjectOfType<Player>().OnPlayerPassedWall += OnPlayerPassedWall;
-
+        Player.OnPlayerPassedWall += UpdateScore_OnPlayerPassedWall;
     }
 
     private void Update()
@@ -18,7 +17,7 @@ public class Score : MonoBehaviour
         text.text = score.ToString();
     }
 
-    private void OnPlayerPassedWall()
+    private void UpdateScore_OnPlayerPassedWall(GameObject _)
     {
         score++;
     }

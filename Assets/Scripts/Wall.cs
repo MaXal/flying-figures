@@ -10,6 +10,7 @@ public class Wall : MonoBehaviour
     [SerializeField] private SpriteManager spriteManager;
 
     private float moveSpeed;
+    private float speedModifier;
 
     private static float PlayerSize
     {
@@ -21,8 +22,11 @@ public class Wall : MonoBehaviour
         }
     }
 
+    public bool PassedByPlayer { get; private set; }
+
     private void Start()
     {
+        Player.OnPlayerPassedWall += ApplySpeedModifier_OnPlayerPassed;
         CreateTiles();
     }
 
@@ -203,13 +207,24 @@ public class Wall : MonoBehaviour
         if (transform.position.x < -1) WallDestroyed();
     }
 
-    public void SetWallSpeed(float speed)
+    public void InitWallSpeed(float speed, float playerPassingModifier)
     {
         moveSpeed = speed;
+        speedModifier = playerPassingModifier;
     }
 
     private void WallDestroyed()
     {
+        Player.OnPlayerPassedWall -= ApplySpeedModifier_OnPlayerPassed;
         Destroy(gameObject);
+    }
+
+    private void ApplySpeedModifier_OnPlayerPassed(GameObject wall)
+    {
+        if (transform.gameObject != wall) return;
+        
+        PassedByPlayer = true;
+        moveSpeed += speedModifier;
+        Player.OnPlayerPassedWall -= ApplySpeedModifier_OnPlayerPassed;
     }
 }

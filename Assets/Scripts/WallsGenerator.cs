@@ -12,13 +12,19 @@ public class WallsGenerator : MonoBehaviour
     private void Start()
     {
         generatedWall = Instantiate(wall, new Vector3(wallInitialLocation, 0, 0), Quaternion.identity);
-        GenerateNewWall();
-        FindObjectOfType<Player>().OnPlayerPassedWall += GenerateNewWall;
+        GenerateNewWall(null);
+        Player.OnPlayerPassedWall += GenerateNewWall;
+        Player.OnPlayerDestroy += UnsubscribeOfPlayer_OnPlayerDestroy;
     }
 
-    private void GenerateNewWall()
+    private void UnsubscribeOfPlayer_OnPlayerDestroy()
     {
-        generatedWall.GetComponent<Wall>().SetWallSpeed(moveSpeed);
+        Player.OnPlayerPassedWall -= GenerateNewWall;
+    }
+
+    private void GenerateNewWall(GameObject _)
+    {
+        generatedWall.GetComponent<Wall>().InitWallSpeed(moveSpeed, speedModifier);
         moveSpeed += speedModifier;
         generatedWall = Instantiate(wall, new Vector3(wallInitialLocation, 0, 0), Quaternion.identity);
     }

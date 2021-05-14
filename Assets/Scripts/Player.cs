@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,11 +8,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float padding = 0.7f;
     [SerializeField] private float paddingInsideTile = 0.1f;
     [SerializeField] private SpriteManager spriteManager;
-    [SerializeField] private float delayForWallDestruction = 0.1f;
 
     private int currentShapeIndex = -1;
 
-    private int enteredIntoTiles;
     private float xMax;
     private float xMin;
     private float yMax;
@@ -34,13 +31,14 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Tile") && other.gameObject.GetComponent<Tile>().Color != color)
+        if (!other.gameObject.CompareTag("Tile")) return;
+        
+        if (other.gameObject.GetComponent<Tile>().Color != color)
         {
             DestroyPlayer();
         }
         else
         {
-            enteredIntoTiles++;
             SetUpTileBoundaries(other.gameObject);
         }
     }
@@ -48,16 +46,14 @@ public class Player : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Tile")) return;
+        
         SetUpWorldMoveBoundaries();
-        enteredIntoTiles--;
-        if (enteredIntoTiles == 0) OnPlayerPassedWall?.Invoke();
-        StartCoroutine(DestroyWall(other.gameObject.transform.parent.gameObject));
-    }
-
-    private IEnumerator DestroyWall(GameObject wall)
-    {
-        yield return new WaitForSeconds(delayForWallDestruction);
-        Destroy(wall);
+        
+        if (!(transform.position.x > other.transform.position.x) ||
+            other.GetComponentInParent<Wall>().PassedByPlayer) return;
+        
+        var wall = other.transform.parent.gameObject;
+        OnPlayerPassedWall?.Invoke(wall);
     }
 
     private void SetUpTileBoundaries(GameObject tile)
@@ -67,7 +63,7 @@ public class Player : MonoBehaviour
         yMax = position.y + paddingInsideTile;
     }
 
-    public event Action OnPlayerPassedWall;
+    public static event Action<GameObject> OnPlayerPassedWall;
 
     public static event Action OnPlayerDestroy;
 
