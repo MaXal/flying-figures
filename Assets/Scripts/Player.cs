@@ -10,12 +10,13 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteManager spriteManager;
 
     private int currentShapeIndex = -1;
-
     private float xMax;
     private float xMin;
     private float yMax;
     private float yMin;
     
+    public static int Life { get; private set; } = 3;
+
     private void Start()
     {
         SetUpWorldMoveBoundaries();
@@ -35,7 +36,10 @@ public class Player : MonoBehaviour
         
         if (other.gameObject.GetComponent<Tile>().Color != color)
         {
-            DestroyPlayer();
+            Life--;
+            OnPlayerLostLife?.Invoke();
+            
+            if (Life <= 0) DestroyPlayer();
         }
         else
         {
@@ -64,7 +68,7 @@ public class Player : MonoBehaviour
     }
 
     public static event Action<GameObject> OnPlayerPassedWall;
-
+    public static event Action OnPlayerLostLife;
     public static event Action OnPlayerDestroy;
 
     private void DestroyPlayer()
