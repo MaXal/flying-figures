@@ -17,8 +17,8 @@ MonoBehaviour:
       max: 5
       min: 1
     ColoredTilesNumberRange:
-      max: 3
-      min: 3
+      max: 2
+      min: 2
     SingleColorInRowRange:
       max: 3
       min: 1
