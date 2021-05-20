@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteManager spriteManager;
 
     private int currentShapeIndex = -1;
+    private bool invincible;
     private float xMax;
     private float xMin;
     private float yMax;
@@ -36,16 +38,24 @@ public class Player : MonoBehaviour
         
         if (other.gameObject.GetComponent<Tile>().Color != color)
         {
-            Life--;
-            OnPlayerLostLife?.Invoke();
+            if (invincible) return;
             
+            Life--;
+            StartCoroutine(TemporaryInvincible());
+            OnPlayerLostLife?.Invoke();
             if (Life <= 0) DestroyPlayer();
         }
-        else
-        {
-            SetUpTileBoundaries(other.gameObject);
-        }
     }
+
+    private IEnumerator TemporaryInvincible()
+    {
+        invincible = true;
+        
+        yield return new WaitForSecondsRealtime(2);
+
+        invincible = false;
+    }
+    
 
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -58,13 +68,6 @@ public class Player : MonoBehaviour
         
         var wall = other.transform.parent.gameObject;
         OnPlayerPassedWall?.Invoke(wall);
-    }
-
-    private void SetUpTileBoundaries(GameObject tile)
-    {
-        var position = tile.transform.position;
-        yMin = position.y - paddingInsideTile;
-        yMax = position.y + paddingInsideTile;
     }
 
     public static event Action<GameObject> OnPlayerPassedWall;
