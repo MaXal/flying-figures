@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpriteManager : MonoBehaviour
@@ -6,10 +7,7 @@ public class SpriteManager : MonoBehaviour
     [SerializeField] private List<Sprite> tileSprites;
     [SerializeField] private List<Sprite> playerSprites;
 
-    public Sprite GetPlayerSprite(int index)
-    {
-        return playerSprites[index];
-    }
+    public Sprite GetPlayerSprite(Color color) => playerSprites.First(s => s.name.Contains(color.ToString()));
 
     public Sprite GetTileSprite(int index)
     {
@@ -19,10 +17,5 @@ public class SpriteManager : MonoBehaviour
     public int GetNumberOfTileColors()
     {
         return tileSprites.Count;
-    }
-
-    public int GetNumberOfPlayerColors()
-    {
-        return playerSprites.Count;
     }
 }

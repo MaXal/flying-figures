@@ -10,14 +10,19 @@ public class Player : MonoBehaviour
     [SerializeField] private float paddingInsideTile = 0.1f;
     [SerializeField] private SpriteManager spriteManager;
 
-    private int currentShapeIndex = -1;
     private bool invincible;
     private float xMax;
     private float xMin;
     private float yMax;
     private float yMin;
-    
+    private SpriteRenderer spriteRenderer;
+
     public static int Life { get; private set; } = 3;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     private void Start()
     {
@@ -35,16 +40,13 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Tile")) return;
-        
-        if (other.gameObject.GetComponent<Tile>().Color != color)
-        {
-            if (invincible) return;
+        if (other.gameObject.GetComponent<Tile>().Color == color) return;
+        if (invincible) return;
             
-            Life--;
-            StartCoroutine(TemporaryInvincible());
-            OnPlayerLostLife?.Invoke();
-            if (Life <= 0) DestroyPlayer();
-        }
+        Life--;
+        StartCoroutine(TemporaryInvincible());
+        OnPlayerLostLife?.Invoke();
+        if (Life <= 0) DestroyPlayer();
     }
 
     private IEnumerator TemporaryInvincible()
@@ -83,11 +85,26 @@ public class Player : MonoBehaviour
 
     private void ChangeShape()
     {
-        if (!Input.GetButtonDown("Jump")) return;
-        currentShapeIndex++;
-        if (currentShapeIndex >= spriteManager.GetNumberOfPlayerColors()) currentShapeIndex = 0;
-        GetComponent<SpriteRenderer>().sprite = spriteManager.GetPlayerSprite(currentShapeIndex);
-        color = (Color) currentShapeIndex;
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            spriteRenderer.sprite = spriteManager.GetPlayerSprite(Color.Blue);
+            color = Color.Blue;
+        }
+        else if (Input.GetKeyDown(KeyCode.J))
+        {
+            spriteRenderer.sprite = spriteManager.GetPlayerSprite(Color.Green);
+            color = Color.Green;
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            spriteRenderer.sprite = spriteManager.GetPlayerSprite(Color.Yellow);
+            color = Color.Yellow;
+        }
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            spriteRenderer.sprite = spriteManager.GetPlayerSprite(Color.Red);
+            color = Color.Red;
+        }
     }
 
     private void Move()
