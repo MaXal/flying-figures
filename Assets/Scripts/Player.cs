@@ -161,19 +161,44 @@ public class Player : MonoBehaviour
         var tiles = tile.GetComponentInParent<Wall>().Tiles;
         var tileIndex = tiles.FindIndex(t => t == tile);
 
-        List<GameObject> nearestTiles;
-        
-        if (tileIndex > 0 && tileIndex < tiles.Count - 1)
+        var nearestBlackTiles = new List<GameObject>();
+
+        if (tileIndex > 0)
         {
-            nearestTiles = new List<GameObject> { tiles[tileIndex - 1], tiles[tileIndex + 1] };
-        }
-        else
-        {
-            nearestTiles = tileIndex == 0 
-                ? new List<GameObject> { tiles[1] } 
-                : new List<GameObject> { tiles[tiles.Count - 2] };
+            var lessIndex = tileIndex - 1;
+            while (lessIndex >= 0)
+            {
+                var currentTile = tiles[lessIndex].GetComponent<Tile>();
+
+                if (currentTile.Color != Color.Black)
+                {
+                    lessIndex--;
+                    continue;
+                }
+                
+                nearestBlackTiles.Add(currentTile.gameObject);
+                break;
+            }
         }
 
-        return nearestTiles.Select(t => t.GetComponent<Collider2D>().bounds);
+        if (tileIndex < tiles.Count - 1)
+        {
+            var moreIndex = tileIndex + 1;
+            while (moreIndex <= tiles.Count - 1)
+            {
+                var currentTile = tiles[moreIndex].GetComponent<Tile>();
+
+                if (currentTile.Color != Color.Black)
+                {
+                    moreIndex++;
+                    continue;
+                }
+                
+                nearestBlackTiles.Add(currentTile.gameObject);
+                break;
+            }
+        }
+
+        return nearestBlackTiles.Select(t => t.GetComponent<Collider2D>().bounds);
     }
 }
