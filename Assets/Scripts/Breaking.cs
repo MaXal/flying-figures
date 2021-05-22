@@ -13,9 +13,15 @@ public class Breaking : MonoBehaviour
     private void Start()
     {
         Player.OnPlayerPassedWall += Increment_OnPlayerPassedWall;
+        Player.OnPlayerLostLife += OnPlayerLostLife;
     }
 
-    private void Increment_OnPlayerPassedWall(GameObject obj)
+    private void OnPlayerLostLife()
+    {
+        Percent = 0 - increment;
+    }
+
+    private void Increment_OnPlayerPassedWall(GameObject _)
     {
         Percent += increment;
         OnPercentChanges?.Invoke();

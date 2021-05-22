@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Color color = Color.Green;
+    [SerializeField] private Color color;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float padding = 0.7f;
     [SerializeField] private float paddingInsideTile = 0.1f;
     [SerializeField] private SpriteManager spriteManager;
+    [SerializeField] private int initLifeCount = 3;
 
     private bool invincible;
     private float xMax;
@@ -17,7 +18,7 @@ public class Player : MonoBehaviour
     private float yMin;
     private SpriteRenderer spriteRenderer;
 
-    public static int Life { get; private set; } = 3;
+    public static int Life { get; private set; }
 
     public static event Action<GameObject> OnPlayerPassedWall;
     public static event Action OnPlayerLostLife;
@@ -26,10 +27,12 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        Life = initLifeCount;
     }
 
     private void Start()
     {
+        SetColor(color);
         SetUpWorldMoveBoundaries();
     }
 
@@ -87,24 +90,26 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            spriteRenderer.sprite = spriteManager.GetPlayerSprite(Color.Blue);
-            color = Color.Blue;
+            SetColor(Color.Blue);
         }
         else if (Input.GetKeyDown(KeyCode.J))
         {
-            spriteRenderer.sprite = spriteManager.GetPlayerSprite(Color.Green);
-            color = Color.Green;
+            SetColor(Color.Green);
         }
         else if (Input.GetKeyDown(KeyCode.K))
         {
-            spriteRenderer.sprite = spriteManager.GetPlayerSprite(Color.Yellow);
-            color = Color.Yellow;
+            SetColor(Color.Yellow);
         }
         else if (Input.GetKeyDown(KeyCode.L))
         {
-            spriteRenderer.sprite = spriteManager.GetPlayerSprite(Color.Red);
-            color = Color.Red;
+            SetColor(Color.Red);
         }
+    }
+
+    private void SetColor(Color c)
+    {
+        color = c;
+        spriteRenderer.sprite = spriteManager.GetPlayerSprite(color);
     }
 
     private void Move()
