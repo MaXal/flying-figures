@@ -6,6 +6,7 @@ public class WallsGenerator : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float speedModifier = 1f;
     [SerializeField] private float wallInitialLocation = 32f;
+    [SerializeField] private int speedDecrementOnBreak = 5;
 
     private GameObject generatedWall;
 
@@ -15,6 +16,7 @@ public class WallsGenerator : MonoBehaviour
         GenerateNewWall(null);
         Player.OnPlayerPassedWall += GenerateNewWall;
         Player.OnPlayerDestroy += UnsubscribeOfPlayer_OnPlayerDestroy;
+        Breaking.OnBreaking += OnBreaking;
     }
 
     private void UnsubscribeOfPlayer_OnPlayerDestroy()
@@ -27,5 +29,10 @@ public class WallsGenerator : MonoBehaviour
         generatedWall.GetComponent<Wall>().InitWallSpeed(moveSpeed, speedModifier);
         moveSpeed += speedModifier;
         generatedWall = Instantiate(wall, new Vector3(wallInitialLocation, 0, 0), Quaternion.identity);
+    }
+
+    private void OnBreaking()
+    {
+        moveSpeed -= speedDecrementOnBreak;
     }
 }

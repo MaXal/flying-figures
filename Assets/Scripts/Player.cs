@@ -19,6 +19,10 @@ public class Player : MonoBehaviour
 
     public static int Life { get; private set; } = 3;
 
+    public static event Action<GameObject> OnPlayerPassedWall;
+    public static event Action OnPlayerLostLife;
+    public static event Action OnPlayerDestroy;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -71,10 +75,6 @@ public class Player : MonoBehaviour
         var wall = other.transform.parent.gameObject;
         OnPlayerPassedWall?.Invoke(wall);
     }
-
-    public static event Action<GameObject> OnPlayerPassedWall;
-    public static event Action OnPlayerLostLife;
-    public static event Action OnPlayerDestroy;
 
     private void DestroyPlayer()
     {
