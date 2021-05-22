@@ -24,6 +24,13 @@ public class Wall : MonoBehaviour
 
     public bool PassedByPlayer { get; private set; }
 
+    public List<GameObject> Tiles { get; private set; }
+
+    private void Awake()
+    {
+        Tiles = new List<GameObject>(NumberOfTiles);
+    }
+
     private void Start()
     {
         Player.OnPlayerPassedWall += ApplySpeedModifier_OnPlayerPassed;
@@ -54,11 +61,13 @@ public class Wall : MonoBehaviour
             generatedTile.GetComponent<Tile>().Color = color;
             generatedTile.transform.parent = gameObject.transform;
 
-            if (color != Color.Black) continue;
+            Tiles.Add(generatedTile);
             
+            if (color != Color.Black) continue;
+
             var previousColored = PreviousIsColored(generatedColors, i);
             var nextColored = NextIsColored(generatedColors, i);
-            
+
             if (previousColored || nextColored)
             {
                 CorrectColliderSize(generatedTile, previousColored, nextColored);

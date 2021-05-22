@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -7,11 +9,11 @@ public class Player : MonoBehaviour
     [SerializeField] private Color color;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float padding = 0.7f;
-    [SerializeField] private float paddingInsideTile = 0.1f;
     [SerializeField] private SpriteManager spriteManager;
     [SerializeField] private int initLifeCount = 3;
 
     private bool invincible;
+    private float paddingInsideTile;
     private float xMax;
     private float xMin;
     private float yMax;
@@ -28,6 +30,7 @@ public class Player : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         Life = initLifeCount;
+        paddingInsideTile = transform.GetComponent<Collider2D>().bounds.extents.y * 1.05f;
     }
 
     private void Start()
@@ -47,6 +50,9 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Tile")) return;
+        
+        SetUpTunnelBoundaries(other.gameObject);
+        
         if (other.gameObject.GetComponent<Tile>().Color == color) return;
         if (invincible) return;
             
@@ -131,5 +137,43 @@ public class Player : MonoBehaviour
         xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - 2 * padding;
         yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + padding;
         yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - padding;
+    }
+
+    private void SetUpTunnelBoundaries(GameObject tile)
+    {
+        var nearestBounds = GetNearestTilesCollidersBounds(tile).ToList();
+        
+        foreach (var bound in nearestBounds)
+        {
+            if (bound.center.y > transform.position.y)
+            {
+                yMax = bound.min.y - paddingInsideTile;
+            }
+            else
+            {
+                yMin = bound.max.y + paddingInsideTile;
+            }
+        }
+    }
+
+    private static IEnumerable<Bounds> GetNearestTilesCollidersBounds(GameObject tile)
+    {
+        var tiles = tile.GetComponentInParent<Wall>().Tiles;
+        var tileIndex = tiles.FindIndex(t => t == tile);
+
+        List<GameObject> nearestTiles;
+        
+        if (tileIndex > 0 && tileIndex < tiles.Count - 1)
+        {
+            nearestTiles = new List<GameObject> { tiles[tileIndex - 1], tiles[tileIndex + 1] };
+        }
+        else
+        {
+            nearestTiles = tileIndex == 0 
+                ? new List<GameObject> { tiles[1] } 
+                : new List<GameObject> { tiles[tiles.Count - 2] };
+        }
+
+        return nearestTiles.Select(t => t.GetComponent<Collider2D>().bounds);
     }
 }

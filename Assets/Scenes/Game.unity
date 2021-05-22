@@ -5816,6 +5816,14 @@ PrefabInstance:
       value: WallsGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 2910823491077235961, guid: 6d3fb6ee11d024d99bbba73f38104fc4, type: 3}
+      propertyPath: initSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2910823491077235961, guid: 6d3fb6ee11d024d99bbba73f38104fc4, type: 3}
+      propertyPath: speedModifier
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2910823491077235961, guid: 6d3fb6ee11d024d99bbba73f38104fc4, type: 3}
       propertyPath: speedDecrementOnBreak
       value: 7
       objectReference: {fileID: 0}
@@ -5872,6 +5880,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2907012159100033404, guid: fcd40e1fea4284e9f89901159bce1edd, type: 3}
+      propertyPath: invincible
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5542279088914746643, guid: fcd40e1fea4284e9f89901159bce1edd, type: 3}
       propertyPath: m_RootOrder
       value: 4
