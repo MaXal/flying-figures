@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class WallsGenerator : MonoBehaviour
@@ -9,9 +10,13 @@ public class WallsGenerator : MonoBehaviour
     [SerializeField] private int speedDecrementOnBreak;
 
     private GameObject generatedWall;
+    private float currentSpeed;
+
+    public static event Action OnSpeedLimitReached;
 
     private void Start()
     {
+        currentSpeed = initSpeed;
         generatedWall = Instantiate(wall, new Vector3(wallInitialLocation, 0, 0), Quaternion.identity);
         GenerateNewWall(null);
         Player.OnPlayerPassedWall += GenerateNewWall;
@@ -26,13 +31,16 @@ public class WallsGenerator : MonoBehaviour
 
     private void GenerateNewWall(GameObject _)
     {
-        generatedWall.GetComponent<Wall>().InitWallSpeed(initSpeed, speedModifier);
-        initSpeed += speedModifier;
+        if (currentSpeed > WaveManager.Current.WallSpeedToIncrementWave) 
+            OnSpeedLimitReached?.Invoke();
+        
+        generatedWall.GetComponent<Wall>().InitWallSpeed(currentSpeed, speedModifier);
+        currentSpeed += speedModifier;
         generatedWall = Instantiate(wall, new Vector3(wallInitialLocation, 0, 0), Quaternion.identity);
     }
 
     private void OnBreaking()
     {
-        initSpeed -= speedDecrementOnBreak;
+        currentSpeed -= speedDecrementOnBreak;
     }
 }

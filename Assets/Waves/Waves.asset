@@ -22,3 +22,14 @@ MonoBehaviour:
     SingleColorInRowRange:
       max: 3
       min: 1
+    WallSpeedToIncrementWave: 10
+  - ColorsRange:
+      max: 5
+      min: 1
+    ColoredTilesNumberRange:
+      max: 3
+      min: 3
+    SingleColorInRowRange:
+      max: 2
+      min: 1
+    WallSpeedToIncrementWave: 10000

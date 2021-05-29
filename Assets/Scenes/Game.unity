@@ -5799,11 +5799,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2910823491077235961, guid: 6d3fb6ee11d024d99bbba73f38104fc4, type: 3}
       propertyPath: speedModifier
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2910823491077235961, guid: 6d3fb6ee11d024d99bbba73f38104fc4, type: 3}
       propertyPath: speedDecrementOnBreak
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2910823491077235962, guid: 6d3fb6ee11d024d99bbba73f38104fc4, type: 3}
       propertyPath: m_RootOrder
